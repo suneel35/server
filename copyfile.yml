@@ -1,0 +1,8 @@
+---
+- hosts: 172.31.55.251
+  become:true
+  tasks:
+   - name: copy package
+     copy:
+       src: /webapp/target/webapp.war
+       dest: /opt/apache-tomcat-9.0.41/webapps
