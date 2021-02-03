@@ -1,0 +1,28 @@
+---
+- hosts: 172.31.55.251
+  become:true
+  tasks:
+   - name: copy package
+     copy:
+       src: /webapp/target/webapp.war
+       dest: /opt/apache-tomcat-9.0.41/webapps
+
+
+
+---
+- hosts: 172.31.55.251
+  become:true
+  tasks:
+    - name: Install httpd
+      yum:
+       - name: Install httpd
+         update_cache: yes
+         state: present
+    - name: Run service
+      service:
+        - name: Start the httpd Server
+          state: restarted
+    - name: template modified
+      template:
+         src: index.html
+         dest: /var/www/html/index.html
